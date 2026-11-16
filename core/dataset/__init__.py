@@ -1,3 +1,15 @@
-"""Subsystem 3b: Dataset preparation for causal LM and grounded synthesis."""
+"""Subsystem 3b: Pretraining dataset pipeline and provenance management."""
 
-__all__ = []
+from core.dataset.pipeline import (
+    DatasetProvenanceRecord,
+    PretrainDocument,
+    PretrainingDatasetPipeline,
+    TokenizedSequence,
+)
+
+__all__ = [
+    "PretrainDocument",
+    "TokenizedSequence",
+    "DatasetProvenanceRecord",
+    "PretrainingDatasetPipeline",
+]
