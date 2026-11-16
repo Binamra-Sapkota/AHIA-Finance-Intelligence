@@ -46,6 +46,7 @@ venv.bak/
 data/raw/
 data/books/
 data/corpus/
+Books PDF/
 *.pdf
 *.epub
 *.mobi
