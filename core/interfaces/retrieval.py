@@ -7,11 +7,14 @@ from core.interfaces.ingestion import Chunk
 
 @dataclass(frozen=True)
 class ScoredChunk:
-    """Retrieved chunk associated with its Okapi BM25 relevance score."""
+    """Retrieved chunk associated with its Okapi BM25 relevance score and reference."""
 
     chunk: Chunk
     score: float
     rank: int
+    doc_title: str = ""
+    doc_author: str = ""
+    reference_label: str = ""
 
 
 class BM25ScorerProtocol(Protocol):
@@ -33,11 +36,13 @@ class BM25ScorerProtocol(Protocol):
 class RetrievalIndexProtocol(Protocol):
     """Protocol for document candidate indexing and search."""
 
-    def index_chunks(self, chunks: List[Chunk]) -> int:
+    def index_chunks(self, chunks: List[Chunk], doc_title: str = "", doc_author: str = "") -> int:
         """Index a batch of chunks into the BM25 inverted index.
 
         Args:
             chunks: List of Chunk objects to index.
+            doc_title: Title of parent document.
+            doc_author: Author of parent document.
 
         Returns:
             Number of indexed chunks.
@@ -48,7 +53,7 @@ class RetrievalIndexProtocol(Protocol):
         self,
         query: str,
         top_k: int = 5,
-        min_score_threshold: float = 1.0,
+        min_score_threshold: float = 0.5,
     ) -> List[ScoredChunk]:
         """Perform BM25 search over indexed passages.
 

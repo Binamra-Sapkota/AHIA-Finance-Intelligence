@@ -97,7 +97,7 @@ The system architecture cleanly isolates ten modular subsystems:
 ### 5.2 Setup Environment
 ```bash
 # Clone the repository
-git clone https://github.com/example/AHIA-Finance-Intelligence.git
+git clone https://github.com/Binamra-Sapkota/AHIA-Finance-Intelligence
 cd AHIA-Finance-Intelligence
 
 # Create virtual environment

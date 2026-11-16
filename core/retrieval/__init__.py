@@ -5,5 +5,11 @@ from core.interfaces.retrieval import (
     RetrievalIndexProtocol,
     ScoredChunk,
 )
+from core.retrieval.bm25 import BM25Index
 
-__all__ = ["BM25ScorerProtocol", "RetrievalIndexProtocol", "ScoredChunk"]
+__all__ = [
+    "BM25ScorerProtocol",
+    "RetrievalIndexProtocol",
+    "ScoredChunk",
+    "BM25Index",
+]

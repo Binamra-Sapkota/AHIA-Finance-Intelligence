@@ -5,9 +5,17 @@ CREATE TABLE IF NOT EXISTS books (
     book_id TEXT PRIMARY KEY,
     title TEXT NOT NULL,
     author TEXT NOT NULL,
+    filename TEXT DEFAULT '',
     source_path TEXT,
     format TEXT NOT NULL,
+    file_hash TEXT UNIQUE,
     total_words INTEGER DEFAULT 0,
+    total_pages INTEGER,
+    license_type TEXT DEFAULT 'Personal Research',
+    provenance TEXT DEFAULT 'User Uploaded',
+    redistribution_permitted BOOLEAN NOT NULL DEFAULT 0,
+    training_permitted BOOLEAN NOT NULL DEFAULT 0,
+    authorized_by_user BOOLEAN NOT NULL DEFAULT 1,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 """
@@ -30,6 +38,8 @@ CREATE TABLE IF NOT EXISTS chunks (
     book_id TEXT NOT NULL,
     chapter_id TEXT,
     chunk_index INTEGER NOT NULL,
+    page_start INTEGER,
+    page_end INTEGER,
     char_start INTEGER NOT NULL,
     char_end INTEGER NOT NULL,
     word_count INTEGER NOT NULL,
@@ -77,8 +87,10 @@ CREATE TABLE IF NOT EXISTS execution_logs (
 """
 
 SQL_CREATE_INDEXES = """
+CREATE INDEX IF NOT EXISTS idx_books_hash ON books(file_hash);
 CREATE INDEX IF NOT EXISTS idx_chunks_book_id ON chunks(book_id);
 CREATE INDEX IF NOT EXISTS idx_chunks_chapter_id ON chunks(chapter_id);
+CREATE INDEX IF NOT EXISTS idx_chunks_pages ON chunks(page_start, page_end);
 CREATE INDEX IF NOT EXISTS idx_bm25_term ON bm25_terms(term);
 CREATE INDEX IF NOT EXISTS idx_citations_chunk ON citations(chunk_id);
 """
