@@ -1,0 +1,10 @@
+# AHIA-R2 Book Intelligence - Python Dependencies
+# CPU PyTorch installation recommended for consumer hardware:
+# pip install torch --extra-index-url https://download.pytorch.org/whl/cpu
+
+torch>=2.1.0
+PySide6>=6.5.0
+numpy>=1.24.0
+
+# Development & Testing
+pytest>=7.4.0
